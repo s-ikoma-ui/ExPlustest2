@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>ExPlus × ExLights｜エクステリアから考える安心の防犯対策</title>
+  <style>
+    :root {
+      --ink: #242222;
+      --paper: #f5f4f0;
+      --white: #fff;
+      --yellow: #f3e500;
+      --amber: #ffc400;
+      --line: rgba(36, 34, 34, .16);
+      --green: #536655;
+      --sans: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.8; }
+    a { color: inherit; text-decoration: none; }
+    .topbar { height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(20px, 5vw, 76px); color: #fff; background: var(--ink); }
+    .topbar__mark { width: 11px; height: 11px; background: var(--yellow); transform: rotate(45deg); }
+    .topbar nav { display: flex; gap: clamp(20px, 4vw, 54px); font-size: 11px; letter-spacing: .16em; }
+    .topbar nav a { opacity: .78; transition: opacity .2s; }
+    .topbar nav a:hover { opacity: 1; }
+    .hero { padding: 0 0 72px; background: var(--yellow); }
+    .hero__image { display: block; width: 100%; height: clamp(240px, 42vw, 560px); object-fit: cover; object-position: center 62%; }
+    .hero__copy { width: min(1180px, 90vw); margin: 0 auto; padding: 36px 0 0; display: flex; justify-content: space-between; align-items: end; gap: 30px; }
+    .eyebrow { margin: 0 0 7px; font-size: 12px; font-weight: 700; letter-spacing: .13em; }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 58px); line-height: 1.25; letter-spacing: .035em; }
+    .hero__strap { max-width: 320px; margin: 0 0 5px; font-size: clamp(14px, 1.6vw, 18px); font-weight: 700; line-height: 1.65; }
+    .intro-prompt { width: min(1180px, 90vw); margin: 0 auto; padding: 34px 40px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 34px; align-items: center; background: #fff; border-bottom: 1px solid var(--line); }
+    .intro-prompt__question { margin: 0; padding-left: 18px; border-left: 4px solid var(--yellow); font-size: clamp(22px, 3vw, 34px); font-weight: 800; line-height: 1.45; }
+    .intro-prompt__body { margin: 0; color: #514e4b; font-size: 14px; line-height: 1.9; }
+    .intro-illustrations { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .concern-card { min-width: 0; margin: 0; padding: 16px 12px 13px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: #f8f7f1; border: 1px solid var(--line); text-align: center; }
+    .concern-card svg { display: block; width: 68px; height: 54px; flex: none; }
+    .concern-card figcaption { font-size: 12px; font-weight: 700; line-height: 1.5; }
+    .intro-prompt__body strong { color: var(--ink); }
+    .contents { width: min(1180px, 90vw); margin: -1px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--ink); color: var(--white); }
+    .contents a { padding: 19px 24px; border-right: 1px solid rgba(255,255,255,.18); display: flex; gap: 13px; align-items: center; font-weight: 700; font-size: 13px; }
+    .contents a:last-child { border: 0; }
+    .contents span { color: var(--yellow); font-size: 11px; letter-spacing: .12em; }
+    main { overflow: hidden; }
+    .section { width: min(1180px, 90vw); margin: 0 auto; padding: 104px 0; }
+    .section--dark { width: 100%; max-width: none; padding: 104px max(5vw, calc((100vw - 1180px) / 2)); color: #fff; background: var(--ink); }
+    .section-head { display: grid; grid-template-columns: 100px 1fr; gap: 22px; align-items: start; margin-bottom: 40px; }
+    .section-head__num { padding-top: 9px; color: #807d78; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+    .section-head h2 { margin: 0; font-size: clamp(26px, 3.2vw, 39px); line-height: 1.4; letter-spacing: .025em; }
+    .section-head p { max-width: 780px; margin: 14px 0 0; font-size: 15px; }
+    .section--dark .section-head__num { color: var(--yellow); }
+    .section--dark .section-head p { color: rgba(255,255,255,.82); }
+    .yellow-rule { width: 42px; height: 4px; margin: 0 0 20px 122px; background: var(--yellow); }
+    .feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .feature { min-width: 0; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); }
+    .feature__scene { min-width: 0; position: relative; overflow: hidden; background: #e8e7e1; }
+    .feature__image { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; background: #e8e7e1; }
+    .feature__placement { display: none; position: absolute; z-index: 1; inset: 0; pointer-events: none; mix-blend-mode: multiply; }
+    .feature__placement::before { content: ""; position: absolute; bottom: 8%; left: 45%; width: 12%; height: 1.8%; border-radius: 50%; background: rgba(26, 29, 28, .24); filter: blur(6px); }
+    .feature__placement img { position: absolute; bottom: 8%; left: 36%; width: auto; height: 58%; max-width: 36%; object-fit: contain; object-position: center bottom; opacity: .96; filter: drop-shadow(0 1px 5px rgba(0,0,0,.2)); }
+    .feature__placement[data-product="fence"]::before { left: 37%; width: 25%; }
+    .feature__placement[data-product="fence"] img { left: 27%; height: 50%; max-width: 55%; }
+    .feature--corner .feature__placement::before { bottom: 10%; left: 59%; width: 12%; }
+    .feature--corner .feature__placement img { bottom: 10%; left: 48%; height: 46%; max-width: 38%; }
+    .feature--corner .feature__placement[data-product="chain"]::before { left: 58%; width: 14%; }
+    .feature--corner .feature__placement[data-product="chain"] img { height: 50%; max-width: 40%; }
+    .feature.is-placed .feature__placement { display: block; }
+    .feature__placement-label { display: none; position: absolute; z-index: 2; top: 12px; left: 12px; padding: 5px 9px; color: var(--ink); background: var(--yellow); font-size: 10px; font-weight: 800; letter-spacing: .04em; }
+    .feature.is-placed .feature__placement-label { display: block; }
+    .feature__copy { min-width: 0; padding: clamp(20px, 3vw, 30px); display: flex; flex: 1; flex-direction: column; }
+    .feature__title { max-width: 400px; margin: 0; font-size: clamp(18px, 2vw, 23px); line-height: 1.5; }
+    .feature__body { max-width: 470px; margin: 14px 0 20px; color: #514e4b; font-size: 14px; }
+    .feature__actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+    .feature__product-button { min-height: 38px; padding: 8px 11px; display: inline-flex; align-items: center; gap: 7px; color: var(--ink); background: #f5f4f0; border: 1px solid rgba(36,34,34,.24); border-radius: 2px; font: inherit; font-size: 11px; font-weight: 700; line-height: 1.4; text-align: left; cursor: pointer; transition: background .2s, border-color .2s; }
+    .feature__product-button::before { width: 18px; height: 18px; flex: none; content: "+"; display: grid; place-items: center; color: var(--ink); background: var(--yellow); border-radius: 50%; font-size: 14px; line-height: 1; }
+    .feature__product-button:hover, .feature__product-button:focus-visible { background: #fff8b3; border-color: #b49b13; }
+    .feature__product-button:focus-visible { outline: 3px solid #736600; outline-offset: 2px; }
+    .feature__product-button[aria-pressed="true"] { background: var(--yellow); border-color: #b49b13; }
+    .feature__product-button[aria-pressed="true"]::before { content: "✓"; font-size: 11px; }
+    .feature__placement-status { min-height: 1.5em; margin: 9px 0 0; color: #625e58; font-size: 10px; line-height: 1.5; }
+    .product-row { margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .product { min-width: 0; margin: 0; background: #fff; border: 1px solid var(--line); }
+    .product__image { display: grid; place-items: center; height: 210px; padding: 14px; overflow: hidden; background: #fff; }
+    .product__image img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .product__info { padding: 17px 18px 20px; border-top: 1px solid var(--line); }
+    .product__code { margin: 0 0 4px; color: #78746f; font-size: 10px; letter-spacing: .12em; }
+    .product__name { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
+    .product__use { min-height: 44px; margin: 9px 0 12px; color: #625e58; font-size: 12px; line-height: 1.65; }
+    .product__spec { margin: 0; padding-top: 9px; border-top: 1px solid var(--line); color: #625e58; font-size: 11px; line-height: 1.7; }
+    .product__price { margin: 10px 0 0; font-size: 11px; color: #625e58; }
+    .product__price strong { margin-left: 7px; color: var(--ink); font-size: 16px; white-space: nowrap; }
+    .catalog-title { margin: 54px 0 20px; padding-bottom: 14px; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; border-bottom: 1px solid var(--line); }
+    .catalog-title h3 { margin: 0; font-size: clamp(21px, 2.4vw, 29px); }
+    .catalog-title span { color: #77736e; font-size: 11px; letter-spacing: .1em; }
+    .section--dark .catalog-title { border-color: rgba(255,255,255,.2); }
+    .section--dark .catalog-title span { color: rgba(255,255,255,.68); }
+    .bike { margin-top: 72px; display: grid; grid-template-columns: minmax(230px, .8fr) 1.2fr; align-items: center; gap: clamp(25px, 6vw, 84px); }
+    .bike__image { height: 330px; display: grid; place-items: center; padding: 18px; overflow: hidden; background: #fff; }
+    .bike__image img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .bike h3 { margin: 0 0 16px; font-size: clamp(22px, 2.7vw, 32px); }
+    .bike p { margin: 0 0 12px; color: #514e4b; font-size: 14px; }
+    .night-layout { display: grid; grid-template-columns: 1.12fr .88fr; gap: 34px; align-items: center; }
+    .night-layout__photo { display: block; width: 100%; height: auto; border: 1px solid rgba(255,255,255,.14); }
+    .night-copy { padding: 20px 0; }
+    .night-copy__callout { display: inline-block; margin-bottom: 19px; padding: 6px 13px; color: var(--ink); background: var(--amber); font-size: 12px; font-weight: 700; }
+    .night-copy h3 { margin: 0 0 15px; font-size: clamp(21px, 2.5vw, 30px); line-height: 1.5; }
+    .night-copy p { margin: 0 0 15px; color: rgba(255,255,255,.78); font-size: 14px; }
+    .placement-grid { margin: 30px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .placement-grid article { padding: 20px 22px; border-left: 3px solid var(--amber); background: rgba(255,255,255,.08); }
+    .placement-grid h3 { margin: 0 0 8px; color: var(--amber); font-size: 11px; letter-spacing: .12em; }
+    .placement-grid p { margin: 0; color: rgba(255,255,255,.88); font-size: 13px; }
+    .combo-banner { margin-top: 30px; padding: clamp(18px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(18px, 3vw, 36px); align-items: center; color: var(--ink); background: #f8f7f1; }
+    .combo-banner__scene { min-width: 0; position: relative; overflow: hidden; aspect-ratio: 620 / 340; background: #272d34; }
+    .combo-banner__art { display: block; width: 100%; height: 100%; }
+    .combo-banner__light { position: absolute; z-index: 1; top: 16%; left: 54%; width: 18%; height: 34%; object-fit: contain; filter: drop-shadow(0 3px 4px rgba(0,0,0,.4)); }
+    .combo-banner__beam { opacity: .1; }
+    .combo-banner__flash { opacity: 0; }
+    .combo-banner__light, .combo-banner__beam, .combo-banner__flash { transition: opacity .25s ease, filter .25s ease; }
+    .combo-banner.is-lit .combo-banner__beam { opacity: .95; animation: sensor-beam .75s ease-out both; }
+    .combo-banner.is-lit .combo-banner__flash { opacity: 1; animation: sensor-flash .45s ease-out both; }
+    .combo-banner.is-lit .combo-banner__light { filter: drop-shadow(0 0 14px rgba(255,224,112,.95)) drop-shadow(0 3px 4px rgba(0,0,0,.4)); }
+    .combo-banner__thief { transform-box: view-box; transform-origin: center; }
+    .combo-banner__thief-run { display: none; }
+    .combo-banner__thief.is-running .combo-banner__thief-run { display: inline; }
+    .combo-banner.is-lit .combo-banner__thief:not(.is-running) { opacity: 0; }
+    .combo-banner__trigger { margin-top: 15px; padding: 10px 17px 10px 12px; display: inline-flex; align-items: center; gap: 9px; color: var(--ink); background: #fff3a1; border: 2px solid #e3c52f; border-radius: 999px; box-shadow: 0 3px 0 #d9bf47; font: inherit; font-size: 12px; font-weight: 800; text-align: left; cursor: pointer; transition: background .2s, color .2s, border-color .2s, box-shadow .2s, transform .2s; }
+    .combo-banner__trigger:hover, .combo-banner__trigger:focus-visible { background: var(--yellow); border-color: #b49b13; box-shadow: 0 4px 0 #b49b13; transform: translateY(-1px); }
+    .combo-banner__trigger:focus-visible { outline: 3px solid #736600; outline-offset: 3px; }
+    .combo-banner__trigger:active { box-shadow: 0 1px 0 #b49b13; transform: translateY(2px); }
+    .combo-banner.is-lit .combo-banner__trigger { color: #fff; background: #536655; border-color: #536655; box-shadow: 0 3px 0 #39483b; }
+    .combo-banner.is-lit .combo-banner__trigger:hover, .combo-banner.is-lit .combo-banner__trigger:focus-visible { background: #3e5141; box-shadow: 0 4px 0 #273a2b; }
+    .combo-banner__trigger-icon { width: 25px; height: 25px; flex: none; display: grid; place-items: center; color: #4a3e00; background: #ffe66b; border-radius: 50%; font-size: 15px; line-height: 1; }
+    .combo-banner.is-lit .combo-banner__trigger-icon { color: #594900; animation: sensor-icon-glow 1s ease-in-out infinite alternate; }
+    @keyframes sensor-beam {
+      0% { opacity: .05; }
+      30% { opacity: .45; }
+      47% { opacity: .9; }
+      62% { opacity: .62; }
+      100% { opacity: .95; }
+    }
+    @keyframes sensor-flash {
+      0% { opacity: 0; transform: scale(.7); transform-origin: 372px 120px; }
+      45% { opacity: 1; }
+      100% { opacity: .7; transform: scale(1); transform-origin: 372px 120px; }
+    }
+    @keyframes sensor-icon-glow {
+      from { box-shadow: 0 0 0 0 rgba(255,230,107,.1); transform: scale(1); }
+      to { box-shadow: 0 0 0 5px rgba(255,230,107,.18); transform: scale(1.08); }
+    }
+    .combo-banner__copy { min-width: 0; }
+    .combo-banner__eyebrow { margin: 0 0 8px; color: #645500; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+    .combo-banner__copy h3 { margin: 0; font-size: clamp(20px, 2.4vw, 29px); line-height: 1.45; }
+    .combo-banner__copy > p:not(.combo-banner__eyebrow):not(.combo-banner__note) { margin: 12px 0 0; color: #514e4b; font-size: 13px; }
+    .combo-banner__products { margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 7px; }
+    .combo-banner__products span { padding: 5px 9px; color: var(--ink); background: #fff; border: 1px solid var(--line); font-size: 11px; font-weight: 700; }
+    .combo-banner__status { min-height: 1.7em; margin: 5px 0 0; color: #514e4b; font-size: 11px; }
+    .combo-banner__note { margin: 12px 0 0; color: #625e58; font-size: 10px; line-height: 1.7; }
+    .combo-banner__note a { text-decoration: underline; text-underline-offset: 2px; }
+    .light-product-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+    .light-product-grid .product__image { height: 190px; }
+    .section--dark .product__use, .section--dark .product__spec, .section--dark .product__price { color: #625e58; }
+    .final-note { width: min(1180px, 90vw); margin: 0 auto; padding: 54px 0 64px; display: flex; justify-content: space-between; align-items: end; gap: 20px; border-top: 1px solid var(--line); }
+    .final-note p { margin: 0; font-size: 15px; font-weight: 700; }
+    .final-note span { color: #77736e; font-size: 11px; letter-spacing: .1em; }
+    footer { padding: 20px 5vw; color: rgba(255,255,255,.75); background: var(--ink); font-size: 11px; }
+    @media (max-width: 720px) {
+      .topbar { height: 48px; }
+      .topbar nav { gap: 13px; font-size: 9px; }
+      .hero { padding-bottom: 45px; }
+      .hero__copy { align-items: start; flex-direction: column; gap: 15px; padding-top: 25px; }
+      .hero__strap { margin: 0; }
+      .intro-prompt { width: 100%; padding: 28px 5vw; grid-template-columns: 1fr; gap: 14px; }
+      .intro-illustrations { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .concern-card { padding: 12px 6px 10px; }
+      .concern-card svg { width: 52px; height: 44px; }
+      .concern-card figcaption { font-size: 11px; }
+      .contents { width: 100%; grid-template-columns: 1fr; }
+      .contents a { padding: 13px 5vw; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+      .section, .section--dark { padding: 70px 5vw; }
+      .section-head { grid-template-columns: 1fr; gap: 6px; margin-bottom: 28px; }
+      .section-head__num { padding: 0; }
+      .yellow-rule { margin-left: 0; }
+      .feature-grid, .product-row { grid-template-columns: 1fr; }
+      .feature__image { aspect-ratio: 16 / 9; }
+      .product__image { height: 200px; }
+      .placement-grid { grid-template-columns: 1fr; }
+      .bike { grid-template-columns: 1fr; gap: 25px; margin-top: 54px; }
+      .bike__image { height: 260px; }
+      .night-layout { grid-template-columns: 1fr; gap: 18px; }
+      .night-copy { padding: 0; }
+      .combo-banner { grid-template-columns: 1fr; gap: 18px; }
+      .product-row, .light-product-grid { grid-template-columns: 1fr; }
+      .final-note { padding: 38px 0; flex-direction: column; align-items: start; }
+    }
+    @media (max-width: 480px) {
+      .product-row { grid-template-columns: 1fr; }
+      .catalog-title { align-items: flex-start; flex-direction: column; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="topbar__mark" aria-hidden="true"></span>
+    <nav aria-label="ページ内目次">
+      <a href="#explus">EXPLUS</a>
+      <a href="#exlights">EXLIGHTS</a>
+      <a href="#products">PRODUCTS</a>
+    </nav>
+  </header>
+
+  <header class="hero">
+    <img class="hero__image" src="./%E8%A7%92%E5%9C%B0%E3%82%AA%E3%83%BC%E3%83%95%E3%82%9A%E3%83%B3%E5%A4%96%E6%A7%8B_3.jpg" alt="ガードポールを設置した角地の住宅外構" fetchpriority="high">
+    <div class="hero__copy">
+      <div>
+        <p class="eyebrow">エクステリアから考える</p>
+        <h1>安心の防犯対策</h1>
+      </div>
+      <p class="hero__strap">住まいの侵入・窃盗を抑止。<br>住まいの安全対策に。</p>
+    </div>
+  </header>
+
+  <section class="intro-prompt" aria-label="防犯対策の悩み">
+    <h2 class="intro-prompt__question">防犯対策、<br>何から始めればいい？</h2>
+    <p class="intro-prompt__body">敷地への侵入、自転車の盗難、夜の暗がり。気になる場所はありませんか？<strong>「入りにくくする」工夫と「見えやすくする」工夫</strong>を組み合わせて、狙われにくい外まわりを考えましょう。</p>
+    <div class="intro-illustrations" aria-label="防犯の気になるポイント">
+      <figure class="concern-card">
+        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
+          <path d="M13 44 43 19l30 25v29H19V44" fill="#fff" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M36 73V52h15v21M25 47h12V35H25zM57 47h10V35H57z" fill="#f3e500" stroke="#242222" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M81 72V48m0 7h12m0-7v24m0-12h13m0-12v24" fill="none" stroke="#536655" stroke-width="5" stroke-linecap="round"/>
+          <path d="M78 77h40" stroke="#242222" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <figcaption>敷地への侵入</figcaption>
+      </figure>
+      <figure class="concern-card">
+        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
+          <circle cx="30" cy="61" r="18" fill="none" stroke="#242222" stroke-width="3"/>
+          <circle cx="83" cy="61" r="18" fill="none" stroke="#242222" stroke-width="3"/>
+          <path d="m30 61 19-28 15 28H30l12-18h22m-15-10h8" fill="none" stroke="#536655" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M78 17h25v20H78zM83 17v-6a8 8 0 0 1 16 0v6" fill="#f3e500" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="90.5" cy="26" r="2" fill="#242222"/>
+        </svg>
+        <figcaption>自転車の盗難</figcaption>
+      </figure>
+      <figure class="concern-card">
+        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
+          <path d="M79 12a26 26 0 1 0 27 38A28 28 0 0 1 79 12Z" fill="#f3e500" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
+          <path d="m24 67 19-20 19 20m-29-1v15h20V66" fill="#fff" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M43 57v10m0 5v4" stroke="#ffc400" stroke-width="4" stroke-linecap="round"/>
+          <path d="M68 74h42M81 69h16v5H81zM85 69l4-16h5l4 16" fill="none" stroke="#536655" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M84 52h10" stroke="#ffc400" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <figcaption>夜の暗がり</figcaption>
+      </figure>
+      <figure class="concern-card">
+        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
+          <path d="M57 16 73 43H41z" fill="#ffc400" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M57 25v9m0 4v1" stroke="#242222" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M17 76h86" stroke="#242222" stroke-width="3" stroke-linecap="round"/>
+          <path d="M37 73c2-9 5-15 12-18l4-13c1-3 5-3 6 0l2 9c6 1 11 5 13 12l5 8-8 2-8-10-2 10H45z" fill="#303038"/>
+          <path d="m47 55-10 5-7 10 5 3 10-8m18-13 8 7 11 2-1 5-15-1-8-6" fill="none" stroke="#303038" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 50h-9m11-8-7-6m14 5-2-9" stroke="#536655" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <figcaption>死角・入りやすい場所</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <nav class="contents" aria-label="INDEX">
+    <a href="#explus"><span>01 /</span> 侵入抑止で防犯性向上</a>
+    <a href="#bike"><span>02 /</span> 自転車の盗難防止に</a>
+    <a href="#exlights"><span>03 /</span> 夜間の防犯対策に</a>
+  </nav>
+
+  <main>
+    <section class="section" id="explus">
+      <div class="section-head">
+        <div class="section-head__num">EXPLUS<br>01 /</div>
+        <div>
+          <h2>侵入抑止で防犯性向上</h2>
+          <p>道路や敷地内の境界・狭小スペースの入り口に。カーポートや角地のコーナー乗り上げ抑止に。</p>
+        </div>
+      </div>
+      <div class="yellow-rule" aria-hidden="true"></div>
+      <div class="feature-grid">
+        <article class="feature feature--narrow">
+          <div class="feature__scene">
+            <img class="feature__image" src="./%E7%8B%AD%E5%B0%8F%E3%82%B9%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B9.jpg" alt="門まわりの狭い通路" loading="lazy">
+            <div class="feature__placement" aria-hidden="true"></div>
+            <span class="feature__placement-label" aria-hidden="true">設置イメージ</span>
+          </div>
+          <div class="feature__copy">
+            <h3 class="feature__title">道路や敷地内の境界・<br>狭小スペースの入り口に</h3>
+            <p class="feature__body">ガードの高さは約80cmで設置。乗り越えるには「動作が大きく」なるため、侵入をためらう心理的な抑止力を高める効果があります。</p>
+            <div class="feature__actions" aria-label="設置イメージを試す商品">
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="pole" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" data-alt="狭い通路に配置したガードポール">ガードポールを置いてみる</button>
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="fence" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" data-alt="狭い通路に配置したガードフェンス">ガードフェンスを置いてみる</button>
+            </div>
+            <p class="feature__placement-status" aria-live="polite">ボタンを押すと、写真に設置イメージが表示されます。</p>
+          </div>
+        </article>
+        <article class="feature feature--corner">
+          <div class="feature__scene">
+            <img class="feature__image" src="./%E8%A7%92%E5%9C%B0%E3%82%AA%E3%83%BC%E3%83%95%E3%82%9A%E3%83%B3%E5%A4%96%E6%A7%8B_3.jpg" alt="角地の住宅外構" loading="lazy">
+            <div class="feature__placement" aria-hidden="true"></div>
+            <span class="feature__placement-label" aria-hidden="true">設置イメージ</span>
+          </div>
+          <div class="feature__copy">
+            <h3 class="feature__title">カーポートや角地の<br>コーナー乗り上げ抑止に</h3>
+            <p class="feature__body">「チェーンフックあり／なし」の2種類で展開。別売のチェーンを取り付けることで、侵入抑止効果をより高めることができます。</p>
+            <div class="feature__actions" aria-label="設置イメージを試す商品">
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="pole" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" data-alt="角地に配置したガードポール">ガードポールを置いてみる</button>
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="chain" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%82%E3%82%8A%20%20%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AF%E3%82%B7%E3%83%AB%E3%83%8F%E3%82%99%E3%83%BC%EF%BC%89.png" data-alt="角地に配置したチェーンフック付きガードポール">チェーン付きポールを置いてみる</button>
+            </div>
+            <p class="feature__placement-status" aria-live="polite">ボタンを押すと、写真に設置イメージが表示されます。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="catalog-title" id="products"><h3>ExPlusシリーズ 商品一覧</h3><span>HEX-P01 — HEX-P09</span></div>
+      <div class="product-row">
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" alt="ガードポールの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P01</p>
+            <h3 class="product__name">ガードポール</h3>
+            <p class="product__use">カーポートなど敷地からの侵入を物理的に防ぎ、敷地内への立ち入りを抑止します。</p>
+            <p class="product__spec">サイズ（約）：W130×D130×H800mm</p>
+            <p class="product__price">参考売価<strong>¥7,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%82%E3%82%8A%20%20%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AF%E3%82%B7%E3%83%AB%E3%83%8F%E3%82%99%E3%83%BC%EF%BC%89.png" alt="チェーン受け付きガードポールの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P02</p>
+            <h3 class="product__name">ガードポール チェーン受け付</h3>
+            <p class="product__use">別売のチェーンを取り付けることで、侵入抑止効果をより高めることができます。</p>
+            <p class="product__spec">サイズ（約）：W130×D130×H800mm</p>
+            <p class="product__price">参考売価<strong>¥8,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%82%E3%82%8A.png" alt="ガードポール用ベースプレートの設置イメージ" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P03</p>
+            <h3 class="product__name">ガードポール用ベースプレート</h3>
+            <p class="product__use">ガードポールを自立させるための専用ベース。</p>
+            <p class="product__spec">サイズ（約）：W350×D350×t4.5mm</p>
+            <p class="product__price">参考売価<strong>¥5,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="スタイルポールの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P04</p>
+            <h3 class="product__name">スタイルポール</h3>
+            <p class="product__use">モダンなデザインスタイルフェンス。侵入防止用の柵や、玄関まわりのアクセントにも。</p>
+            <p class="product__spec">サイズ（約）：W530×D130×H800mm</p>
+            <p class="product__price">参考売価<strong>¥18,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" alt="ガードフェンスの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P05</p>
+            <h3 class="product__name">ガードフェンス</h3>
+            <p class="product__use">角地の侵入対策に最適。設置しやすいシンプルデザイン。</p>
+            <p class="product__spec">サイズ（約）：W1000×D115×H800mm</p>
+            <p class="product__price">参考売価<strong>¥16,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" alt="ガードフェンスとベースの設置イメージ" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P06</p>
+            <h3 class="product__name">スタイルポール・ガードフェンス用ベースプレート</h3>
+            <p class="product__use">スタイルポール／ガードフェンスを自立させるための専用ベース。</p>
+            <p class="product__spec">サイズ（約）：W150×D460×t4.5mm</p>
+            <p class="product__price">参考売価<strong>¥5,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="ガードスタンドの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P07</p>
+            <h3 class="product__name">ガードスタンド</h3>
+            <p class="product__use">コンパクトに収納や持ち運びができる、置くだけで簡単に設置可能なスタンド。</p>
+            <p class="product__spec">サイズ（約）：W500×D375×H800mm</p>
+            <p class="product__price">参考売価<strong>¥20,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンドの商品写真" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P08</p>
+            <h3 class="product__name">サイクルポートスタンド</h3>
+            <p class="product__use">持ち去りによる盗難を防止。1台用自転車スタンド。タイヤを締める高さ調整可能。</p>
+            <p class="product__spec">サイズ（約）：W180×D110×H1200mm</p>
+            <p class="product__price">参考売価<strong>¥12,000</strong> /台</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンド用ベースを含む設置イメージ" loading="lazy"></div>
+          <div class="product__info">
+            <p class="product__code">HEX-P09</p>
+            <h3 class="product__name">サイクルポートスタンド用ベース</h3>
+            <p class="product__use">サイクルポートスタンドを自立させるための専用ベース。</p>
+            <p class="product__spec">サイズ（約）：W500×D535×H165mm</p>
+            <p class="product__price">参考売価<strong>¥7,000</strong> /台</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="bike" id="bike">
+        <div class="bike__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="自転車の固定に使うサイクルポートスタンド" loading="lazy"></div>
+        <div>
+          <p class="section-head__num">POINT 02 /</p>
+          <h3>自転車の盗難防止に</h3>
+          <p>サイクルスタンドに自転車を固定し、ワイヤーロックなどでスタンドと一緒に施錠する「地球ロック」に対応。自転車盗難を防止する効果を高めます。</p>
+          <p>夜間や長時間の駐輪時も安心。住宅になじむシンプルなデザインで、玄関先や駐車スペースにすっきり設置でき、暮らしに安心をプラスするサイクルスタンドです。</p>
+          <p class="product__code">HEX-P08　サイクルポートスタンド</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="exlights">
+      <div class="section-head">
+        <div class="section-head__num">EXLIGHTS<br>03 /</div>
+        <div>
+          <h2>ExLightsシリーズと組み合わせて<br>夜間の防犯対策に</h2>
+          <p>人感センサー搭載のソーラーライト ExLightsシリーズを設置して、夜のセキュリティー対策に。</p>
+        </div>
+      </div>
+      <div class="night-layout">
+        <img class="night-layout__photo" src="./%E8%A7%92%E5%9C%B0%E3%82%AA%E3%83%BC%E3%83%95%E3%82%9A%E3%83%B3%E5%A4%96%E6%A7%8B_%E5%A4%9C_0609_2.jpg" alt="ライトで玄関や駐車スペースを照らした夜の住宅外構" loading="lazy">
+        <div class="night-copy">
+          <span class="night-copy__callout">必要な時に、しっかりと明るく照らす</span>
+          <h3>人感センサーライト</h3>
+          <p>夜間に人の動きを感知して自動点灯するセンサーライトは、不審者の姿を照らし出し、視認性を高めます。</p>
+          <p>さらに、突然の点灯による心理的な威圧感を与えることで、防犯効果を発揮します。</p>
+        </div>
+      </div>
+      <div class="placement-grid">
+        <article><h3>設置が効果的な場所</h3><p>玄関先やアプローチ、通路など。住まいの安全性と安心感を高めます。</p></article>
+        <article><h3>配線の引き回しが困難な場所にも</h3><p>置くだけで照明を設置することができます。</p></article>
+      </div>
+      <aside class="combo-banner" aria-labelledby="combo-title">
+        <div class="combo-banner__scene" id="combo-scene">
+          <svg class="combo-banner__art" viewBox="0 0 620 340" role="img" aria-labelledby="combo-scene-title combo-scene-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="combo-scene-title">ExPlusの支柱にソーラーライトを設置するイメージ</title>
+            <desc id="combo-scene-desc">夜の住宅の外構で、人感センサーライトが点灯すると、泥棒の影が走って画面の外へ逃げていきます。</desc>
+            <defs>
+              <linearGradient id="combo-sky" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#29343f"/>
+                <stop offset="1" stop-color="#596169"/>
+              </linearGradient>
+              <linearGradient id="combo-beam" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffe46b" stop-opacity=".85"/>
+                <stop offset="1" stop-color="#ffe46b" stop-opacity=".04"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#combo-sky)" d="M0 0h620v340H0z"/>
+            <circle cx="542" cy="38" r="2" fill="#f6e8a9"/>
+            <circle cx="574" cy="68" r="1.5" fill="#f6e8a9"/>
+            <circle cx="506" cy="88" r="1.5" fill="#f6e8a9"/>
+            <path d="M399 143V77l59-42 61 42v113H399z" fill="#9a9b91"/>
+            <path d="M388 81 458 30l71 51" fill="none" stroke="#d4d0bd" stroke-width="8" stroke-linejoin="round"/>
+            <path d="M431 112h25v33h-25zm45-4h22v28h-22z" fill="#ffd46a" opacity=".8"/>
+            <path d="M0 248h620v92H0z" fill="#3c4447"/>
+            <path d="M0 283c149-22 285-12 620-39v96H0z" fill="#626761"/>
+            <path d="M0 301h620" stroke="#c0bba7" stroke-width="3" opacity=".45"/>
+            <path class="combo-banner__beam" d="m345 125 29 11 105 130H240z" fill="url(#combo-beam)"/>
+            <path d="M351 116h47v166h-47z" fill="#25272b"/>
+            <path d="M344 279h61v10h-61z" fill="#17191d"/>
+            <path d="M356 133h37v9h-37z" fill="#46494f"/>
+            <circle cx="357" cy="163" r="2.5" fill="#a8acb1"/>
+            <circle cx="357" cy="269" r="2.5" fill="#a8acb1"/>
+            <path d="M416 230v-40m0 14h112m-78-14v40m0-16h104" fill="none" stroke="#26282c" stroke-width="5"/>
+            <g class="combo-banner__thief" id="combo-thief">
+              <animateTransform class="combo-banner__thief-run" attributeName="transform" type="translate" values="0 0; 36 -15; 100 0; 165 -15; 235 0; 310 -13; 385 0; 450 -8; 510 0" keyTimes="0;.12;.24;.36;.48;.6;.72;.86;1" calcMode="spline" keySplines=".2 .7 .3 1;.3 0 .7 1;.3 .7 .3 1;.3 0 .7 1;.3 .7 .3 1;.3 0 .7 1;.3 .7 .3 1;.3 0 .7 1" dur="1.35s" fill="freeze"/>
+              <animate attributeName="opacity" values="1;1;0" keyTimes="0;.72;1" dur="1.35s" fill="freeze"/>
+              <path d="M228 247c-10-6-13-15-7-22l13-8 7 7-10 10 9 11zm38 10 13-1 13 9 13-1 2 6-18 4-15-7-10 8-11-2z" fill="#17191d"/>
+              <path d="M242 238c-10 2-16 12-17 23l-5 18h20l8-14 8 15h18l-12-25-8-14z" fill="#202329"/>
+              <path d="m239 275-9 11-15 4 2 6 21-1 12-14m17-1 13 9 14 2 1 6-21-1-18-9" fill="#17191d"/>
+              <path d="M244 219c1-8 17-11 24-2v12h-25z" fill="#17191d"/>
+              <path d="M243 226h25v6h-25z" fill="#77797b"/>
+              <path d="M250 228h3m8 0h3" stroke="#ffd84d" stroke-width="2" stroke-linecap="round"/>
+              <path d="M265 228c-2-5 1-10 6-11l7 6-2 19-9 6-5-11z" fill="#41454c"/>
+              <path d="M142 189h101a8 8 0 0 1 8 8v17h-101a8 8 0 0 1-8-8z" fill="#fffdf3"/>
+              <path d="M157 202h71m-61 7h51" stroke="#242222" stroke-width="2" stroke-linecap="round"/>
+              <path d="m239 222 8 4" stroke="#fffdf3" stroke-width="2"/>
+            </g>
+            <path d="M301 294h31m11 0h18m102 0h28" stroke="#f1dfaa" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+            <g class="combo-banner__flash" fill="none" stroke="#fff1aa" stroke-width="4" stroke-linecap="round">
+              <path d="m348 91-8-10m55 8 8-11m-34 2v-14m-49 61-12-5m111 8 13-3"/>
+            </g>
+            <circle cx="372" cy="126" r="25" fill="#ffd84d" opacity=".2"/>
+          </svg>
+          <img class="combo-banner__light" src="./LGS-EL04.png" alt="取付イメージに使用したソーラーライト">
+        </div>
+        <div class="combo-banner__copy">
+          <p class="combo-banner__eyebrow">ExPlus × ExLights / 組み合わせイメージ</p>
+          <h3 id="combo-title">ポールで侵入を抑止。<br>ライトで暗がりを照らす。</h3>
+          <p>ExPlusの支柱まわりに人感センサー付きソーラーライトをプラス。人の動きを感知して照らすことで、外まわりの見通しと夜間の安心感を高めます。影の人も、思わず「おっと！」。</p>
+          <button class="combo-banner__trigger" type="button" aria-pressed="false" aria-controls="combo-scene">
+            <span class="combo-banner__trigger-icon" aria-hidden="true">✦</span><span class="combo-banner__trigger-label">センサーを試してみる</span>
+          </button>
+          <p class="combo-banner__status" aria-live="polite">動きを感知すると、ライトがパッと点灯します。</p>
+          <div class="combo-banner__products" aria-label="組み合わせる商品">
+            <span>ExPlus ガードポール</span>
+            <span>ExLights ソーラーライト</span>
+            <span>取付用プレート LGS-ELP01</span>
+          </div>
+          <p class="combo-banner__note">※図は組み合わせのイメージです。ExPlusへの取付可否や必要な部材・設置方法は、商品および設置条件をご確認ください。 <a href="#exlight-products">対象商品を見る ↓</a></p>
+        </div>
+      </aside>
+      <div class="catalog-title" id="exlight-products"><h3>ExLightsシリーズ 対象商品</h3><span>LGS-EL03 / EL04 / EL10 / ELP01</span></div>
+      <div class="light-product-grid">
+        <article class="product">
+          <div class="product__image"><img src="./LGS-EL03.png" alt="ソーラーウォールライト CUBE 1型の商品写真" loading="lazy"></div>
+          <div class="product__info"><p class="product__code">LGS-EL03</p><h3 class="product__name">ソーラーウォールライト<br>CUBE 1型</h3><p class="product__spec">サイズ（約）：W284×D63×H50mm</p><p class="product__price">上代<strong>¥5,000</strong> /個</p></div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./LGS-EL04.png" alt="ソーラーウォールライト CUBE 2型の商品写真" loading="lazy"></div>
+          <div class="product__info"><p class="product__code">LGS-EL04</p><h3 class="product__name">ソーラーウォールライト<br>CUBE 2型</h3><p class="product__spec">サイズ（約）：W158×D50×H151mm</p><p class="product__price">上代<strong>¥5,700</strong> /個</p></div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./LGS-EL10.png" alt="ソーラーウォールライト Mantisの商品写真" loading="lazy"></div>
+          <div class="product__info"><p class="product__code">LGS-EL10</p><h3 class="product__name">ソーラーウォールライト<br>Mantis</h3><p class="product__spec">サイズ（約）：W118×D55×H140mm</p><p class="product__price">上代<strong>¥5,000</strong> /個</p></div>
+        </article>
+        <article class="product">
+          <div class="product__image"><img src="./LGS-ELP01.png" alt="差込式防犯プレートの商品写真" loading="lazy"></div>
+          <div class="product__info"><p class="product__code">LGS-ELP01</p><h3 class="product__name">差込式防犯プレート</h3><p class="product__use">このプレートを使用して躯体に照明を取り付けます。</p><p class="product__spec">サイズ（約）：W73×D15×H30mm</p><p class="product__price">上代<strong>¥1,000</strong> /個</p></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="final-note">
+    <p>エクステリアから考える<br>安心の防犯対策</p>
+    <span>ExPlus × ExLights series</span>
+  </div>
+  <footer>株式会社タカショー　|　エクステリアから考える安心の防犯対策</footer>
+  <script>
+    const comboBanner = document.querySelector(".combo-banner");
+    const comboTrigger = document.querySelector(".combo-banner__trigger");
+    const comboStatus = document.querySelector(".combo-banner__status");
+    const comboThief = document.querySelector("#combo-thief");
+    const thiefRunAnimation = comboThief.querySelector(".combo-banner__thief-run");
+    const thiefFadeAnimation = comboThief.querySelector('animate[attributeName="opacity"]');
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    document.querySelectorAll(".feature__product-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const feature = button.closest(".feature");
+        const placement = feature.querySelector(".feature__placement");
+        const status = feature.querySelector(".feature__placement-status");
+        const wasSelected = button.getAttribute("aria-pressed") === "true";
+
+        feature.querySelectorAll(".feature__product-button").forEach((option) => {
+          option.setAttribute("aria-pressed", "false");
+        });
+
+        if (wasSelected) {
+          feature.classList.remove("is-placed");
+          placement.replaceChildren();
+          placement.removeAttribute("data-product");
+          placement.setAttribute("aria-hidden", "true");
+          status.textContent = "設置イメージを消しました。";
+          return;
+        }
+
+        const image = document.createElement("img");
+        image.src = button.dataset.image;
+        image.alt = "";
+        image.loading = "lazy";
+        placement.replaceChildren(image);
+        placement.dataset.product = button.dataset.product;
+        placement.setAttribute("aria-hidden", "false");
+        button.setAttribute("aria-pressed", "true");
+        feature.classList.add("is-placed");
+        status.textContent = `${button.dataset.alt}を表示しています。`;
+      });
+    });
+
+    comboTrigger.addEventListener("click", () => {
+      const isLit = comboTrigger.getAttribute("aria-pressed") !== "true";
+      comboBanner.classList.toggle("is-lit", isLit);
+      comboTrigger.setAttribute("aria-pressed", String(isLit));
+      comboTrigger.querySelector(".combo-banner__trigger-label").textContent = isLit
+        ? "点灯中！もう一度で消灯"
+        : "センサーを試してみる";
+      comboStatus.textContent = isLit
+        ? "パッと点灯！影の人が走って逃げました。"
+        : "ライトを消灯しました。";
+
+      comboThief.classList.remove("is-running");
+      thiefRunAnimation.endElement();
+      thiefFadeAnimation.endElement();
+      comboThief.style.opacity = "";
+
+      if (isLit && !reduceMotion.matches) {
+        comboThief.classList.add("is-running");
+        thiefRunAnimation.beginElement();
+        thiefFadeAnimation.beginElement();
+      }
+    });
+  </script>
+</body>
+</html>
