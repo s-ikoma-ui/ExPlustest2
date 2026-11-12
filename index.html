@@ -48,9 +48,15 @@
     .section--dark { width: 100%; max-width: none; padding: 104px max(5vw, calc((100vw - 1180px) / 2)); color: #fff; background: var(--ink); }
     .section-head { display: grid; grid-template-columns: 100px 1fr; gap: 22px; align-items: start; margin-bottom: 40px; }
     .section-head__num { padding-top: 9px; color: #807d78; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+    .series-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+    .series-brand__logo { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); font-size: 19px; font-weight: 800; letter-spacing: -.07em; line-height: 1.15; white-space: nowrap; }
+    .series-brand__logo::before { width: 9px; height: 9px; flex: none; content: ""; background: var(--yellow); transform: rotate(45deg); }
+    .series-brand__index { color: #807d78; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
     .section-head h2 { margin: 0; font-size: clamp(26px, 3.2vw, 39px); line-height: 1.4; letter-spacing: .025em; }
     .section-head p { max-width: 780px; margin: 14px 0 0; font-size: 15px; }
     .section--dark .section-head__num { color: var(--yellow); }
+    .section--dark .series-brand__logo { color: #fff; }
+    .section--dark .series-brand__index { color: var(--yellow); }
     .section--dark .section-head p { color: rgba(255,255,255,.82); }
     .yellow-rule { width: 42px; height: 4px; margin: 0 0 20px 122px; background: var(--yellow); }
     .feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -82,8 +88,8 @@
     .feature__placement-status { min-height: 1.5em; margin: 9px 0 0; color: #625e58; font-size: 10px; line-height: 1.5; }
     .product-row { margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .product { min-width: 0; margin: 0; background: #fff; border: 1px solid var(--line); }
-    .product__image { display: grid; place-items: center; height: 210px; padding: 14px; overflow: hidden; background: #fff; }
-    .product__image img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .product__image { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; height: 210px; padding: 14px; overflow: hidden; background: #fff; }
+    .product__image img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
     .product__info { padding: 17px 18px 20px; border-top: 1px solid var(--line); }
     .product__code { margin: 0 0 4px; color: #78746f; font-size: 10px; letter-spacing: .12em; }
     .product__name { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
@@ -181,6 +187,8 @@
       .section, .section--dark { padding: 70px 5vw; }
       .section-head { grid-template-columns: 1fr; gap: 6px; margin-bottom: 28px; }
       .section-head__num { padding: 0; }
+      .series-brand { flex-direction: row; align-items: center; gap: 10px; }
+      .series-brand__logo { font-size: 17px; }
       .yellow-rule { margin-left: 0; }
       .feature-grid, .product-row { grid-template-columns: 1fr; }
       .feature__image { aspect-ratio: 16 / 9; }
@@ -280,7 +288,10 @@
   <main>
     <section class="section" id="explus">
       <div class="section-head">
-        <div class="section-head__num">EXPLUS<br>01 /</div>
+        <div class="section-head__num series-brand">
+          <span class="series-brand__logo">ExPlus</span>
+          <span class="series-brand__index">01 /</span>
+        </div>
         <div>
           <h2>侵入抑止で防犯性向上</h2>
           <p>道路や敷地内の境界・狭小スペースの入り口に。カーポートや角地のコーナー乗り上げ抑止に。</p>
@@ -430,7 +441,10 @@
 
     <section class="section section--dark" id="exlights">
       <div class="section-head">
-        <div class="section-head__num">EXLIGHTS<br>03 /</div>
+        <div class="section-head__num series-brand">
+          <span class="series-brand__logo">ExLights</span>
+          <span class="series-brand__index">03 /</span>
+        </div>
         <div>
           <h2>ExLightsシリーズと組み合わせて<br>夜間の防犯対策に</h2>
           <p>人感センサー搭載のソーラーライト ExLightsシリーズを設置して、夜のセキュリティー対策に。</p>
