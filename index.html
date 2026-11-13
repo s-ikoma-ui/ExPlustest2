@@ -25,8 +25,10 @@
     .topbar nav { display: flex; gap: clamp(20px, 4vw, 54px); font-size: 11px; letter-spacing: .16em; }
     .topbar nav a { opacity: .78; transition: opacity .2s; }
     .topbar nav a:hover { opacity: 1; }
-    .hero { padding: 0 0 72px; background: var(--yellow); }
+    .hero { position: relative; padding: 0 0 72px; background: var(--yellow); }
     .hero__image { display: block; width: 100%; height: clamp(240px, 42vw, 560px); object-fit: cover; object-position: center 62%; }
+    .hero__logo { position: absolute; top: clamp(20px, 4vw, 44px); left: clamp(20px, 5vw, 76px); width: clamp(132px, 18vw, 220px); }
+    .hero__logo img { display: block; width: 100%; height: auto; filter: drop-shadow(0 2px 5px rgba(0,0,0,.65)); }
     .hero__copy { width: min(1180px, 90vw); margin: 0 auto; padding: 36px 0 0; display: flex; justify-content: space-between; align-items: end; gap: 30px; }
     .eyebrow { margin: 0 0 7px; font-size: 12px; font-weight: 700; letter-spacing: .13em; }
     h1 { margin: 0; font-size: clamp(30px, 5vw, 58px); line-height: 1.25; letter-spacing: .035em; }
@@ -36,7 +38,7 @@
     .intro-prompt__body { margin: 0; color: #514e4b; font-size: 14px; line-height: 1.9; }
     .intro-illustrations { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
     .concern-card { min-width: 0; margin: 0; padding: 16px 12px 13px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: #f8f7f1; border: 1px solid var(--line); text-align: center; }
-    .concern-card svg { display: block; width: 68px; height: 54px; flex: none; }
+    .concern-card img { display: block; width: 68px; height: 54px; flex: none; object-fit: contain; }
     .concern-card figcaption { font-size: 12px; font-weight: 700; line-height: 1.5; }
     .intro-prompt__body strong { color: var(--ink); }
     .contents { width: min(1180px, 90vw); margin: -1px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--ink); color: var(--white); }
@@ -47,6 +49,7 @@
     .section { width: min(1180px, 90vw); margin: 0 auto; padding: 104px 0; }
     .section--dark { width: 100%; max-width: none; padding: 104px max(5vw, calc((100vw - 1180px) / 2)); color: #fff; background: var(--ink); }
     .section-head { display: grid; grid-template-columns: 100px 1fr; gap: 22px; align-items: start; margin-bottom: 40px; }
+    .section-head--bike { margin-top: 48px; }
     .section-head__num { padding-top: 9px; color: #807d78; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
     .series-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
     .series-brand__logo { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); font-size: 19px; font-weight: 800; letter-spacing: -.07em; line-height: 1.15; white-space: nowrap; }
@@ -66,13 +69,30 @@
     .feature__placement { display: none; position: absolute; z-index: 1; inset: 0; pointer-events: none; mix-blend-mode: multiply; }
     .feature__placement::before { content: ""; position: absolute; bottom: 8%; left: 45%; width: 12%; height: 1.8%; border-radius: 50%; background: rgba(26, 29, 28, .24); filter: blur(6px); }
     .feature__placement img { position: absolute; bottom: 8%; left: 36%; width: auto; height: 58%; max-width: 36%; object-fit: contain; object-position: center bottom; opacity: .96; filter: drop-shadow(0 1px 5px rgba(0,0,0,.2)); }
+    .feature__here { display: none; position: absolute; z-index: 3; bottom: 61%; left: 51%; width: clamp(52px, 8%, 78px); height: auto; transform: translateX(-50%); pointer-events: none; animation: here-blink 2.4s ease-in-out infinite; }
+    @keyframes here-blink { 50% { opacity: .25; } }
+    .feature--narrow .feature__here { bottom: 40%; left: 47%; }
     .feature__placement[data-product="fence"]::before { left: 37%; width: 25%; }
     .feature__placement[data-product="fence"] img { left: 27%; height: 50%; max-width: 55%; }
+    .feature__placement[data-product="fence"] ~ .feature__here { bottom: 53%; left: 53%; }
     .feature--corner .feature__placement::before { bottom: 10%; left: 59%; width: 12%; }
     .feature--corner .feature__placement img { bottom: 10%; left: 48%; height: 46%; max-width: 38%; }
     .feature--corner .feature__placement[data-product="chain"]::before { left: 58%; width: 14%; }
     .feature--corner .feature__placement[data-product="chain"] img { height: 50%; max-width: 40%; }
     .feature.is-placed .feature__placement { display: block; }
+    .feature.is-placed .feature__here { display: block; }
+    .feature--corner.is-placed .feature__placement { display: none; }
+    .feature--corner .feature__here[data-product="fence"] { bottom: 38%; left: 50%; }
+    .feature--corner .feature__here[data-product="style-pole"] { bottom: 38%; left: 72%; }
+    .feature--bike { display: grid; grid-column: 1 / -1; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+    .feature-grid--bike { margin-top: 0; }
+    .feature--bike .feature__image { height: 100%; min-height: 220px; aspect-ratio: 240 / 143; object-fit: cover; }
+    .feature--bike .feature__here { bottom: 78%; left: 67%; }
+    .feature__index { margin: 0 0 8px; color: #77736e; font-size: 11px; font-weight: 700; letter-spacing: .14em; }
+    @media (prefers-reduced-motion: reduce) {
+      .feature__here { animation: none; }
+      .product-gallery__track { scroll-behavior: auto; }
+    }
     .feature__placement-label { display: none; position: absolute; z-index: 2; top: 12px; left: 12px; padding: 5px 9px; color: var(--ink); background: var(--yellow); font-size: 10px; font-weight: 800; letter-spacing: .04em; }
     .feature.is-placed .feature__placement-label { display: block; }
     .feature__copy { min-width: 0; padding: clamp(20px, 3vw, 30px); display: flex; flex: 1; flex-direction: column; }
@@ -88,8 +108,17 @@
     .feature__placement-status { min-height: 1.5em; margin: 9px 0 0; color: #625e58; font-size: 10px; line-height: 1.5; }
     .product-row { margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .product { min-width: 0; margin: 0; background: #fff; border: 1px solid var(--line); }
-    .product__image { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; height: 210px; padding: 14px; overflow: hidden; background: #fff; }
-    .product__image img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
+    .product__image { position: relative; height: 210px; overflow: hidden; background: #fff; }
+    .product-gallery__track { width: 100%; height: 100%; display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(36,34,34,.3) transparent; scroll-behavior: smooth; }
+    .product-gallery__track img { display: block; flex: 0 0 100%; width: 100%; height: 100%; padding: 14px; object-fit: contain; scroll-snap-align: start; }
+    .product-gallery__controls { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; pointer-events: none; }
+    .product-gallery__button { width: 34px; height: 34px; display: grid; place-items: center; padding: 0; color: var(--ink); background: rgba(243,229,0,.88); border: 1px solid rgba(36,34,34,.12); border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,.12); font: inherit; font-size: 15px; line-height: 1; cursor: pointer; pointer-events: auto; backdrop-filter: blur(3px); transition: background .2s, transform .2s; }
+    .product-gallery__button[data-gallery-prev],
+    .product-gallery__button[data-gallery-next] { color: #fff; }
+    .product-gallery__button:hover, .product-gallery__button:focus-visible { background: rgba(255,255,255,.98); transform: scale(1.08); }
+    .product-gallery__button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .product-gallery__button:disabled { opacity: .48; cursor: default; transform: none; }
+    .product-gallery__count { position: absolute; left: 50%; bottom: 9px; min-width: 42px; padding: 2px 8px; color: #fff; background: rgba(36,34,34,.58); border-radius: 12px; font-size: 10px; font-variant-numeric: tabular-nums; text-align: center; transform: translateX(-50%); }
     .product__info { padding: 17px 18px 20px; border-top: 1px solid var(--line); }
     .product__code { margin: 0 0 4px; color: #78746f; font-size: 10px; letter-spacing: .12em; }
     .product__name { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
@@ -107,6 +136,23 @@
     .bike__image img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
     .bike h3 { margin: 0 0 16px; font-size: clamp(22px, 2.7vw, 32px); }
     .bike p { margin: 0 0 12px; color: #514e4b; font-size: 14px; }
+    .installation-methods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .installation-method { min-width: 0; padding: clamp(18px, 2.5vw, 28px); background: #fff; border: 1px solid var(--line); }
+    .installation-method__eyebrow { margin: 0 0 5px; color: #77736e; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+    .installation-method h3 { margin: 0; font-size: clamp(18px, 2vw, 23px); line-height: 1.5; }
+    .installation-method__body { margin: 10px 0 0; color: #514e4b; font-size: 13px; }
+    .installation-method__product-image { min-width: 0; height: 190px; margin: 18px 0 0; overflow: hidden; background: #f8f7f1; }
+    .installation-method__product-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .installation-method__options { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .installation-option { min-width: 0; padding: 12px; background: #f8f7f1; border: 1px solid var(--line); }
+    .installation-option__image { height: 140px; margin: 0 0 11px; display: grid; place-items: center; background: #fff; }
+    .installation-option__image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .installation-option h4 { margin: 0; font-size: 13px; line-height: 1.55; }
+    .installation-option__label { margin: 10px 0 5px; color: #77736e; font-size: 10px; font-weight: 700; }
+    .installation-option__products { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; list-style: none; }
+    .installation-option__products li { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 10px; font-weight: 700; line-height: 1.5; }
+    .installation-option__products li span { padding: 4px 7px; background: var(--yellow); }
+    .installation-option__products li img { display: block; width: 34px; height: 42px; object-fit: contain; }
     .night-layout { display: grid; grid-template-columns: 1.12fr .88fr; gap: 34px; align-items: center; }
     .night-layout__photo { display: block; width: 100%; height: auto; border: 1px solid rgba(255,255,255,.14); }
     .night-copy { padding: 20px 0; }
@@ -164,43 +210,90 @@
     .combo-banner__status { min-height: 1.7em; margin: 5px 0 0; color: #514e4b; font-size: 11px; }
     .combo-banner__note { margin: 12px 0 0; color: #625e58; font-size: 10px; line-height: 1.7; }
     .combo-banner__note a { text-decoration: underline; text-underline-offset: 2px; }
-    .light-product-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
-    .light-product-grid .product__image { height: 190px; }
+    .light-product-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .light-product-grid .product__image { height: 190px; padding: 14px; }
+    .light-product-grid .product__image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .light-product__fit { margin-top: 14px; padding-top: 11px; border-top: 1px solid var(--line); }
+    .light-product__fit-label { margin: 0 0 7px; color: #625e58; font-size: 10px; font-weight: 700; }
+    .light-product__fit-list { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; list-style: none; }
+    .light-product__fit-list li { min-width: 0; padding: 5px 8px; display: inline-flex; align-items: center; gap: 7px; color: var(--ink); background: var(--yellow); font-size: 10px; font-weight: 700; line-height: 1.5; }
+    .light-product__fit-list img { display: block; width: 30px; height: 38px; object-fit: contain; }
+    .light-product__demos { margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line); }
+    .light-product__demos-title { margin: 0 0 9px; color: #625e58; font-size: 11px; font-weight: 800; }
+    .light-install-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .light-install { width: min(100%, 170px); min-width: 0; margin: 0; }
+    .light-install__scene { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #e5e0d5; }
+    .light-install__scene img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter .35s ease; }
+    .light-install.is-lit .light-install__scene img { filter: brightness(1.04) saturate(1.06); }
+    .light-install__button { position: absolute; right: 7px; bottom: 7px; min-height: 32px; padding: 5px 9px; color: var(--ink); background: var(--yellow); border: 1px solid rgba(36,34,34,.24); border-radius: 2px; font: inherit; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .light-install__button:focus-visible { outline: 3px solid #736600; outline-offset: 2px; }
+    .light-install figcaption { margin-top: 5px; color: #514e4b; font-size: 10px; font-weight: 700; line-height: 1.5; }
+    .section--dark .product__name { color: var(--ink); }
     .section--dark .product__use, .section--dark .product__spec, .section--dark .product__price { color: #625e58; }
     .final-note { width: min(1180px, 90vw); margin: 0 auto; padding: 54px 0 64px; display: flex; justify-content: space-between; align-items: end; gap: 20px; border-top: 1px solid var(--line); }
     .final-note p { margin: 0; font-size: 15px; font-weight: 700; }
     .final-note span { color: #77736e; font-size: 11px; letter-spacing: .1em; }
+    .footer-products { padding: 28px 0 34px; overflow: hidden; color: var(--ink); background: var(--yellow); }
+    .footer-products__title { margin: 0 0 10px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: .16em; }
+    .footer-products__lane { width: 100%; overflow: hidden; }
+    .footer-products__lane + .footer-products__lane { margin-top: 2px; }
+    .footer-products__track { width: max-content; display: flex; animation: footer-products-left 36s linear infinite; }
+    .footer-products__lane--reverse .footer-products__track { animation-name: footer-products-right; animation-duration: 42s; }
+    .footer-products__group { position: relative; flex: none; display: flex; align-items: center; gap: clamp(32px, 6vw, 88px); padding: 0 clamp(16px, 3vw, 40px); }
+    .footer-products__group::before { position: absolute; z-index: 1; top: 50%; left: calc(clamp(16px, 3vw, 40px) + clamp(76px, 10vw, 132px) + clamp(32px, 6vw, 88px) / 2 - 14px); width: 28px; height: 32px; content: ""; background: url("./footer-thief.png") center / contain no-repeat; filter: url(#footer-white-background-removal); mix-blend-mode: multiply; pointer-events: none; transform: translateY(-50%) scaleX(-1); animation: footer-thief-run-left .22s ease-in-out infinite alternate; }
+    .footer-products__lane--reverse .footer-products__group::before { transform: translateY(-50%); animation-name: footer-thief-run; }
+    .footer-products__group > img,
+    .footer-products__link img { display: block; width: clamp(76px, 10vw, 132px); height: 94px; object-fit: contain; filter: url(#footer-white-background-removal); mix-blend-mode: multiply; animation: footer-product-float 2.8s ease-in-out infinite alternate; }
+    .footer-products__link { flex: none; display: block; border-radius: 4px; }
+    .footer-products__link:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+    .footer-products__group > img:nth-child(2n),
+    .footer-products__group > a:nth-child(2n) img { animation-delay: -.8s; }
+    .footer-products__group > img:nth-child(3n),
+    .footer-products__group > a:nth-child(3n) img { animation-delay: -1.6s; }
+    @keyframes footer-products-left { to { transform: translateX(-50%); } }
+    @keyframes footer-products-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @keyframes footer-product-float { to { transform: translateY(-7px) rotate(2deg); } }
+    @keyframes footer-thief-run { to { transform: translateY(calc(-50% - 3px)) rotate(5deg); } }
+    @keyframes footer-thief-run-left { to { transform: translateY(calc(-50% - 3px)) scaleX(-1) rotate(-5deg); } }
     footer { padding: 20px 5vw; color: rgba(255,255,255,.75); background: var(--ink); font-size: 11px; }
     @media (max-width: 720px) {
       .topbar { height: 48px; }
       .topbar nav { gap: 13px; font-size: 9px; }
       .hero { padding-bottom: 45px; }
+      .hero__logo { top: 18px; left: 5vw; width: clamp(116px, 34vw, 160px); }
       .hero__copy { align-items: start; flex-direction: column; gap: 15px; padding-top: 25px; }
       .hero__strap { margin: 0; }
       .intro-prompt { width: 100%; padding: 28px 5vw; grid-template-columns: 1fr; gap: 14px; }
       .intro-illustrations { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
       .concern-card { padding: 12px 6px 10px; }
-      .concern-card svg { width: 52px; height: 44px; }
+      .concern-card img { width: 52px; height: 44px; }
       .concern-card figcaption { font-size: 11px; }
       .contents { width: 100%; grid-template-columns: 1fr; }
       .contents a { padding: 13px 5vw; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
       .section, .section--dark { padding: 70px 5vw; }
       .section-head { grid-template-columns: 1fr; gap: 6px; margin-bottom: 28px; }
+      .section-head--bike { margin-top: 40px; }
       .section-head__num { padding: 0; }
       .series-brand { flex-direction: row; align-items: center; gap: 10px; }
       .series-brand__logo { font-size: 17px; }
       .yellow-rule { margin-left: 0; }
       .feature-grid, .product-row { grid-template-columns: 1fr; }
+      .feature--bike { grid-template-columns: 1fr; }
       .feature__image { aspect-ratio: 16 / 9; }
       .product__image { height: 200px; }
       .placement-grid { grid-template-columns: 1fr; }
       .bike { grid-template-columns: 1fr; gap: 25px; margin-top: 54px; }
       .bike__image { height: 260px; }
+      .installation-methods, .installation-method__options { grid-template-columns: 1fr; }
+      .installation-method__product-image { height: 170px; }
+      .installation-option__image { height: 160px; }
       .night-layout { grid-template-columns: 1fr; gap: 18px; }
       .night-copy { padding: 0; }
       .combo-banner { grid-template-columns: 1fr; gap: 18px; }
       .product-row, .light-product-grid { grid-template-columns: 1fr; }
       .final-note { padding: 38px 0; flex-direction: column; align-items: start; }
+      .footer-products { padding: 22px 0 26px; }
+      .footer-products__group img { height: 78px; }
     }
     @media (max-width: 480px) {
       .product-row { grid-template-columns: 1fr; }
@@ -223,6 +316,7 @@
 
   <header class="hero">
     <img class="hero__image" src="./%E8%A7%92%E5%9C%B0%E3%82%AA%E3%83%BC%E3%83%95%E3%82%9A%E3%83%B3%E5%A4%96%E6%A7%8B_3.jpg" alt="ガードポールを設置した角地の住宅外構" fetchpriority="high">
+    <div class="hero__logo"><img src="./ExPlusロゴ.png" alt="ExPlus"></div>
     <div class="hero__copy">
       <div>
         <p class="eyebrow">エクステリアから考える</p>
@@ -234,47 +328,23 @@
 
   <section class="intro-prompt" aria-label="防犯対策の悩み">
     <h2 class="intro-prompt__question">防犯対策、<br>何から始めればいい？</h2>
-    <p class="intro-prompt__body">敷地への侵入、自転車の盗難、夜の暗がり。気になる場所はありませんか？<strong>「入りにくくする」工夫と「見えやすくする」工夫</strong>を組み合わせて、狙われにくい外まわりを考えましょう。</p>
+    <p class="intro-prompt__body">敷地への侵入、死角や入りやすい場所、自転車の盗難、夜の暗がり。気になる場所はありませんか？<strong>「入りにくくする」工夫と「見えやすくする」工夫</strong>を組み合わせて、狙われにくい外まわりを考えましょう。</p>
     <div class="intro-illustrations" aria-label="防犯の気になるポイント">
       <figure class="concern-card">
-        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
-          <path d="M13 44 43 19l30 25v29H19V44" fill="#fff" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M36 73V52h15v21M25 47h12V35H25zM57 47h10V35H57z" fill="#f3e500" stroke="#242222" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M81 72V48m0 7h12m0-7v24m0-12h13m0-12v24" fill="none" stroke="#536655" stroke-width="5" stroke-linecap="round"/>
-          <path d="M78 77h40" stroke="#242222" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+        <img src="./concern-intrusion.png" alt="" aria-hidden="true" loading="lazy">
         <figcaption>敷地への侵入</figcaption>
       </figure>
       <figure class="concern-card">
-        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
-          <circle cx="30" cy="61" r="18" fill="none" stroke="#242222" stroke-width="3"/>
-          <circle cx="83" cy="61" r="18" fill="none" stroke="#242222" stroke-width="3"/>
-          <path d="m30 61 19-28 15 28H30l12-18h22m-15-10h8" fill="none" stroke="#536655" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M78 17h25v20H78zM83 17v-6a8 8 0 0 1 16 0v6" fill="#f3e500" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
-          <circle cx="90.5" cy="26" r="2" fill="#242222"/>
-        </svg>
+        <img src="./concern-blindspot.png" alt="" aria-hidden="true" loading="lazy">
+        <figcaption>死角・入りやすい場所</figcaption>
+      </figure>
+      <figure class="concern-card">
+        <img src="./concern-bike-theft.png" alt="" aria-hidden="true" loading="lazy">
         <figcaption>自転車の盗難</figcaption>
       </figure>
       <figure class="concern-card">
-        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
-          <path d="M79 12a26 26 0 1 0 27 38A28 28 0 0 1 79 12Z" fill="#f3e500" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
-          <path d="m24 67 19-20 19 20m-29-1v15h20V66" fill="#fff" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M43 57v10m0 5v4" stroke="#ffc400" stroke-width="4" stroke-linecap="round"/>
-          <path d="M68 74h42M81 69h16v5H81zM85 69l4-16h5l4 16" fill="none" stroke="#536655" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M84 52h10" stroke="#ffc400" stroke-width="4" stroke-linecap="round"/>
-        </svg>
+        <img src="./concern-darkness.png" alt="" aria-hidden="true" loading="lazy">
         <figcaption>夜の暗がり</figcaption>
-      </figure>
-      <figure class="concern-card">
-        <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
-          <path d="M57 16 73 43H41z" fill="#ffc400" stroke="#242222" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M57 25v9m0 4v1" stroke="#242222" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M17 76h86" stroke="#242222" stroke-width="3" stroke-linecap="round"/>
-          <path d="M37 73c2-9 5-15 12-18l4-13c1-3 5-3 6 0l2 9c6 1 11 5 13 12l5 8-8 2-8-10-2 10H45z" fill="#303038"/>
-          <path d="m47 55-10 5-7 10 5 3 10-8m18-13 8 7 11 2-1 5-15-1-8-6" fill="none" stroke="#303038" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M27 50h-9m11-8-7-6m14 5-2-9" stroke="#536655" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <figcaption>死角・入りやすい場所</figcaption>
       </figure>
     </div>
   </section>
@@ -299,36 +369,114 @@
       </div>
       <div class="yellow-rule" aria-hidden="true"></div>
       <div class="feature-grid">
-        <article class="feature feature--narrow">
+        <article class="feature feature--narrow" data-base-image="./%E7%8B%AD%E5%B0%8F%E3%82%B9%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B9.jpg">
           <div class="feature__scene">
             <img class="feature__image" src="./%E7%8B%AD%E5%B0%8F%E3%82%B9%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B9.jpg" alt="門まわりの狭い通路" loading="lazy">
             <div class="feature__placement" aria-hidden="true"></div>
+            <img class="feature__here" src="./HERE.png" alt="" aria-hidden="true">
             <span class="feature__placement-label" aria-hidden="true">設置イメージ</span>
           </div>
           <div class="feature__copy">
             <h3 class="feature__title">道路や敷地内の境界・<br>狭小スペースの入り口に</h3>
             <p class="feature__body">ガードの高さは約80cmで設置。乗り越えるには「動作が大きく」なるため、侵入をためらう心理的な抑止力を高める効果があります。</p>
             <div class="feature__actions" aria-label="設置イメージを試す商品">
-              <button class="feature__product-button" type="button" aria-pressed="false" data-product="pole" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" data-alt="狭い通路に配置したガードポール">ガードポールを置いてみる</button>
-              <button class="feature__product-button" type="button" aria-pressed="false" data-product="fence" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" data-alt="狭い通路に配置したガードフェンス">ガードフェンスを置いてみる</button>
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="stand" data-scene="./狭小スペース2.jpg" data-alt="狭小スペースにガードスタンドを設置したイメージ">ガードスタンドを置いてみる</button>
             </div>
             <p class="feature__placement-status" aria-live="polite">ボタンを押すと、写真に設置イメージが表示されます。</p>
           </div>
         </article>
-        <article class="feature feature--corner">
+        <article class="feature feature--corner" data-base-image="./カーポートや角地商品なし.png">
           <div class="feature__scene">
-            <img class="feature__image" src="./%E8%A7%92%E5%9C%B0%E3%82%AA%E3%83%BC%E3%83%95%E3%82%9A%E3%83%B3%E5%A4%96%E6%A7%8B_3.jpg" alt="角地の住宅外構" loading="lazy">
+            <img class="feature__image" src="./カーポートや角地商品なし.png" alt="カーポートや角地のコーナー乗り上げ対策イメージ" loading="lazy">
             <div class="feature__placement" aria-hidden="true"></div>
+            <img class="feature__here" src="./HERE.png" alt="" aria-hidden="true">
             <span class="feature__placement-label" aria-hidden="true">設置イメージ</span>
           </div>
           <div class="feature__copy">
             <h3 class="feature__title">カーポートや角地の<br>コーナー乗り上げ抑止に</h3>
-            <p class="feature__body">「チェーンフックあり／なし」の2種類で展開。別売のチェーンを取り付けることで、侵入抑止効果をより高めることができます。</p>
+            <p class="feature__body">ガードフェンスやスタイルポールを設置して、カーポートや角地のコーナー乗り上げを抑止します。</p>
             <div class="feature__actions" aria-label="設置イメージを試す商品">
-              <button class="feature__product-button" type="button" aria-pressed="false" data-product="pole" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" data-alt="角地に配置したガードポール">ガードポールを置いてみる</button>
-              <button class="feature__product-button" type="button" aria-pressed="false" data-product="chain" data-image="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%82%E3%82%8A%20%20%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AF%E3%82%B7%E3%83%AB%E3%83%8F%E3%82%99%E3%83%BC%EF%BC%89.png" data-alt="角地に配置したチェーンフック付きガードポール">チェーン付きポールを置いてみる</button>
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="fence" data-scene="./カーポートや角地ガードフェンスあり.png" data-alt="ガードフェンスを設置したカーポートや角地">ガードフェンスを置いてみる</button>
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="style-pole" data-scene="./カーポートや角地スタイルポールあり.png" data-alt="スタイルポールを設置したカーポートや角地">スタイルポールを置いてみる</button>
             </div>
             <p class="feature__placement-status" aria-live="polite">ボタンを押すと、写真に設置イメージが表示されます。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-head section-head--bike">
+        <div class="section-head__num series-brand">
+          <span class="series-brand__logo">ExPlus</span>
+          <span class="series-brand__index">02 /</span>
+        </div>
+        <div>
+          <h2 id="bike">自転車の盗難防止に</h2>
+          <p>サイクルポートスタンドに自転車を固定し、ワイヤーロックなどで一緒に施錠する「地球ロック」で、持ち去りを抑止します。</p>
+        </div>
+      </div>
+      <div class="feature-grid feature-grid--bike">
+        <article class="feature feature--bike" data-base-image="./自転車盗難防止商品なし.png">
+          <div class="feature__scene">
+            <img class="feature__image" src="./自転車盗難防止商品なし.png" alt="サイクルポートスタンド設置前の駐輪スペース" loading="lazy">
+            <div class="feature__placement" aria-hidden="true"></div>
+            <img class="feature__here" src="./HERE.png" alt="" aria-hidden="true">
+            <span class="feature__placement-label" aria-hidden="true">設置イメージ</span>
+          </div>
+          <div class="feature__copy">
+            <p class="feature__body">スタンドを地面に固定し、自転車と一緒に施錠。自転車だけを持ち去りにくくする設置イメージです。</p>
+            <div class="feature__actions" aria-label="設置イメージを試す商品">
+              <button class="feature__product-button" type="button" aria-pressed="false" data-product="bike-stand" data-scene="./自転車盗難防止商品あり.png" data-alt="サイクルポートスタンドを設置した駐輪イメージ">サイクルポートスタンドを置いてみる</button>
+            </div>
+            <p class="feature__placement-status" aria-live="polite">ボタンを押すと、写真に設置イメージが表示されます。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-head section-head--bike">
+        <div class="section-head__num series-brand">
+          <span class="series-brand__logo">ExPlus</span>
+          <span class="series-brand__index">03 /</span>
+        </div>
+        <div>
+          <h2 id="installation">取り付け方法</h2>
+          <p>設置場所や使う商品に合わせて、コンクリートに直接打ち込む方法と、別売りのベースプレートで自立させる方法を選べます。</p>
+        </div>
+      </div>
+      <div class="installation-methods">
+        <article class="installation-method">
+          <p class="installation-method__eyebrow">METHOD 01</p>
+          <h3>別売りベースプレートで自立させる</h3>
+          <p class="installation-method__body">商品に合ったベースプレートを取り付けて、自立させて設置します。対応する商品をお選びください。</p>
+          <div class="installation-method__options">
+            <section class="installation-option" aria-labelledby="base-plate-pole">
+              <figure class="installation-option__image">
+                <img src="./ガードポール用ベースプレート.jpg" alt="ガードポール用ベースプレート" loading="lazy">
+              </figure>
+              <h4 id="base-plate-pole">ガードポール用<br>ベースプレート</h4>
+              <p class="installation-option__label">対応商品</p>
+              <ul class="installation-option__products">
+                <li><span>ガードポール</span><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="ガードポール" loading="lazy"></li>
+              </ul>
+            </section>
+            <section class="installation-option" aria-labelledby="base-plate-fence">
+              <figure class="installation-option__image">
+                <img src="./スタイルポール・ガードフェンス用ベースプレート.jpg" alt="スタイルポール・ガードフェンス用ベースプレート" loading="lazy">
+              </figure>
+              <h4 id="base-plate-fence">スタイルポール・<br>ガードフェンス用</h4>
+              <p class="installation-option__label">対応商品</p>
+              <ul class="installation-option__products">
+                <li><span>スタイルポール</span><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="スタイルポール" loading="lazy"></li>
+                <li><span>ガードフェンス</span><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="ガードフェンス" loading="lazy"></li>
+              </ul>
+            </section>
+          </div>
+        </article>
+        <article class="installation-method">
+          <p class="installation-method__eyebrow">METHOD 02</p>
+          <h3>コンクリートに直接打ち込む</h3>
+          <p class="installation-method__body">ベースプレートを使わず、コンクリートに直接打ち込んで設置する方法です。</p>
+          <div class="installation-method__product-image">
+            <img src="./コンクリートに直接打ち込む.png" alt="コンクリートにガードポールの支柱を固定している様子" loading="lazy">
           </div>
         </article>
       </div>
@@ -336,17 +484,37 @@
       <div class="catalog-title" id="products"><h3>ExPlusシリーズ 商品一覧</h3><span>HEX-P01 — HEX-P09</span></div>
       <div class="product-row">
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89.png" alt="ガードポールの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="ガードポールの画像。左右にスライドできます">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="ガードポールの商品写真" loading="lazy">
+              <img src="./ガードポール用ベースプレート.jpg" alt="ガードポール用ベースプレートの商品写真" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="ガードポールの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="ガードポールの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P01</p>
-            <h3 class="product__name">ガードポール</h3>
+            <h3 class="product__name" id="product-guard-pole">ガードポール</h3>
             <p class="product__use">カーポートなど敷地からの侵入を物理的に防ぎ、敷地内への立ち入りを抑止します。</p>
             <p class="product__spec">サイズ（約）：W130×D130×H800mm</p>
             <p class="product__price">参考売価<strong>¥7,000</strong> /台</p>
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%82%E3%82%8A%20%20%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AF%E3%82%B7%E3%83%AB%E3%83%8F%E3%82%99%E3%83%BC%EF%BC%89.png" alt="チェーン受け付きガードポールの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="チェーン受け付きガードポールの画像。左右にスライドできます">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%82%E3%82%8A%20%20%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AF%E3%82%B7%E3%83%AB%E3%83%8F%E3%82%99%E3%83%BC%EF%BC%89.png" alt="チェーン受け付きガードポールの商品写真" loading="lazy">
+              <img src="./ガードポール用ベースプレート.jpg" alt="チェーン受け付きガードポールに対応するベースプレート" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="チェーン受け付きガードポールの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="チェーン受け付きガードポールの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P02</p>
             <h3 class="product__name">ガードポール チェーン受け付</h3>
@@ -356,7 +524,17 @@
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%82%E3%82%8A.png" alt="ガードポール用ベースプレートの設置イメージ" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="ガードポール用ベースプレートの画像。左右にスライドできます">
+              <img src="./ガードポール用ベースプレート.jpg" alt="ガードポール用ベースプレートの商品写真" loading="lazy">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%82%E3%82%8A.png" alt="ガードポール用ベースプレートの設置イメージ" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="ガードポール用ベースプレートの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="ガードポール用ベースプレートの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P03</p>
             <h3 class="product__name">ガードポール用ベースプレート</h3>
@@ -366,27 +544,59 @@
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="スタイルポールの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="スタイルポールの画像。左右にスライドできます">
+              <img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="スタイルポールの商品写真" loading="lazy">
+              <img src="./ExPlus_series_スタイルポール3.jpg" alt="スタイルポールの設置イメージ" loading="lazy">
+              <img src="./スタイルポール・ガードフェンス用ベースプレート.jpg" alt="スタイルポールに対応するベースプレート" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="スタイルポールの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="スタイルポールの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P04</p>
-            <h3 class="product__name">スタイルポール</h3>
+            <h3 class="product__name" id="product-style-pole">スタイルポール</h3>
             <p class="product__use">モダンなデザインスタイルフェンス。侵入防止用の柵や、玄関まわりのアクセントにも。</p>
             <p class="product__spec">サイズ（約）：W530×D130×H800mm</p>
             <p class="product__price">参考売価<strong>¥18,000</strong> /台</p>
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" alt="ガードフェンスの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="ガードフェンスの画像。左右にスライドできます">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="ガードフェンスの商品写真" loading="lazy">
+              <img src="./ExPlus_series_ガードフェンス3.jpg" alt="ガードフェンスの設置イメージ" loading="lazy">
+              <img src="./スタイルポール・ガードフェンス用ベースプレート.jpg" alt="ガードフェンスに対応するベースプレート" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="ガードフェンスの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="ガードフェンスの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P05</p>
-            <h3 class="product__name">ガードフェンス</h3>
+            <h3 class="product__name" id="product-guard-fence">ガードフェンス</h3>
             <p class="product__use">角地の侵入対策に最適。設置しやすいシンプルデザイン。</p>
             <p class="product__spec">サイズ（約）：W1000×D115×H800mm</p>
             <p class="product__price">参考売価<strong>¥16,000</strong> /台</p>
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" alt="ガードフェンスとベースの設置イメージ" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="スタイルポール・ガードフェンス用ベースプレートの画像。左右にスライドできます">
+              <img src="./スタイルポール・ガードフェンス用ベースプレート.jpg" alt="スタイルポール・ガードフェンス用ベースプレートの商品写真" loading="lazy">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B9.png" alt="ガードフェンスとベースの設置イメージ" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="ベースプレートの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="ベースプレートの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P06</p>
             <h3 class="product__name">スタイルポール・ガードフェンス用ベースプレート</h3>
@@ -396,27 +606,57 @@
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="ガードスタンドの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="ガードスタンドの画像。左右にスライドできます">
+              <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="ガードスタンドの商品写真" loading="lazy">
+              <img src="./ExPlus_series_ガードスタンド3.jpg" alt="ガードスタンドの設置イメージ" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="ガードスタンドの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="ガードスタンドの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P07</p>
-            <h3 class="product__name">ガードスタンド</h3>
+            <h3 class="product__name" id="product-guard-stand">ガードスタンド</h3>
             <p class="product__use">コンパクトに収納や持ち運びができる、置くだけで簡単に設置可能なスタンド。</p>
             <p class="product__spec">サイズ（約）：W500×D375×H800mm</p>
             <p class="product__price">参考売価<strong>¥20,000</strong> /台</p>
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンドの商品写真" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="サイクルポートスタンドの画像。左右にスライドできます">
+              <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンドの商品写真" loading="lazy">
+              <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンドの商品写真（別スライド）" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="サイクルポートスタンドの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="サイクルポートスタンドの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P08</p>
-            <h3 class="product__name">サイクルポートスタンド</h3>
+            <h3 class="product__name" id="product-cycle-stand">サイクルポートスタンド</h3>
             <p class="product__use">持ち去りによる盗難を防止。1台用自転車スタンド。タイヤを締める高さ調整可能。</p>
             <p class="product__spec">サイズ（約）：W180×D110×H1200mm</p>
             <p class="product__price">参考売価<strong>¥12,000</strong> /台</p>
           </div>
         </article>
         <article class="product">
-          <div class="product__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンド用ベースを含む設置イメージ" loading="lazy"></div>
+          <div class="product__image product-gallery" data-product-gallery>
+            <div class="product-gallery__track" tabindex="0" role="group" aria-label="サイクルポートスタンド用ベースの画像。左右にスライドできます">
+              <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンド用ベースを含む設置イメージ" loading="lazy">
+              <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="サイクルポートスタンド用ベースを含む設置イメージ（別スライド）" loading="lazy">
+            </div>
+            <div class="product-gallery__controls">
+              <button class="product-gallery__button" type="button" data-gallery-prev aria-label="サイクルポートスタンド用ベースの前の画像">◀</button>
+              <button class="product-gallery__button" type="button" data-gallery-next aria-label="サイクルポートスタンド用ベースの次の画像">▶</button>
+            </div>
+            <span class="product-gallery__count" aria-live="polite">1 / 2</span>
+          </div>
           <div class="product__info">
             <p class="product__code">HEX-P09</p>
             <h3 class="product__name">サイクルポートスタンド用ベース</h3>
@@ -427,16 +667,6 @@
         </article>
       </div>
 
-      <div class="bike" id="bike">
-        <div class="bike__image"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="自転車の固定に使うサイクルポートスタンド" loading="lazy"></div>
-        <div>
-          <p class="section-head__num">POINT 02 /</p>
-          <h3>自転車の盗難防止に</h3>
-          <p>サイクルスタンドに自転車を固定し、ワイヤーロックなどでスタンドと一緒に施錠する「地球ロック」に対応。自転車盗難を防止する効果を高めます。</p>
-          <p>夜間や長時間の駐輪時も安心。住宅になじむシンプルなデザインで、玄関先や駐車スペースにすっきり設置でき、暮らしに安心をプラスするサイクルスタンドです。</p>
-          <p class="product__code">HEX-P08　サイクルポートスタンド</p>
-        </div>
-      </div>
     </section>
 
     <section class="section section--dark" id="exlights">
@@ -528,28 +758,96 @@
           <div class="combo-banner__products" aria-label="組み合わせる商品">
             <span>ExPlus ガードポール</span>
             <span>ExLights ソーラーライト</span>
-            <span>取付用プレート LGS-ELP01</span>
           </div>
           <p class="combo-banner__note">※図は組み合わせのイメージです。ExPlusへの取付可否や必要な部材・設置方法は、商品および設置条件をご確認ください。 <a href="#exlight-products">対象商品を見る ↓</a></p>
         </div>
       </aside>
-      <div class="catalog-title" id="exlight-products"><h3>ExLightsシリーズ 対象商品</h3><span>LGS-EL03 / EL04 / EL10 / ELP01</span></div>
+      <div class="catalog-title" id="exlight-products"><h3>ExLightsシリーズ 対象商品</h3><span>LGS-EL03 / EL04 / EL10</span></div>
       <div class="light-product-grid">
         <article class="product">
           <div class="product__image"><img src="./LGS-EL03.png" alt="ソーラーウォールライト CUBE 1型の商品写真" loading="lazy"></div>
-          <div class="product__info"><p class="product__code">LGS-EL03</p><h3 class="product__name">ソーラーウォールライト<br>CUBE 1型</h3><p class="product__spec">サイズ（約）：W284×D63×H50mm</p><p class="product__price">上代<strong>¥5,000</strong> /個</p></div>
+          <div class="product__info">
+            <p class="product__code">LGS-EL03</p>
+            <h3 class="product__name">ExLights ソーラーウォールライト<br>CUBE1型</h3>
+            <p class="product__price">上代<strong>¥5,000</strong> /個</p>
+            <p class="product__use">玄関灯や門柱灯、壁沿いの足元灯に。景観になじみながら、足元を明るく照らします。</p>
+            <div class="light-product__fit">
+              <p class="light-product__fit-label">取り付け可能商品</p>
+              <ul class="light-product__fit-list">
+                <li><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="" aria-hidden="true"><span>ガードフェンス</span></li>
+                <li><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="" aria-hidden="true"><span>ガードスタンド</span></li>
+              </ul>
+            </div>
+            <section class="light-product__demos" aria-label="CUBE1型の取り付けイメージ">
+              <h4 class="light-product__demos-title">取り付けイメージ</h4>
+              <div class="light-install-grid">
+                <figure class="light-install" data-light-install data-before="./ガードフェンス点灯前.jpg" data-after="./ガードフェンス点灯後.jpg">
+                  <div class="light-install__scene"><img src="./ガードフェンス点灯前.jpg" alt="ガードフェンスにCUBE1型を取り付けた消灯時のイメージ" loading="lazy"><button class="light-install__button" type="button" aria-pressed="false">＋ 点灯する</button></div>
+                  <figcaption>ガードフェンスに取り付け</figcaption>
+                </figure>
+                <figure class="light-install" data-light-install data-before="./ガードスタンド点灯前.jpg" data-after="./ガードスタンド点灯後.jpg">
+                  <div class="light-install__scene"><img src="./ガードスタンド点灯前.jpg" alt="ガードスタンドにCUBE1型を取り付けた消灯時のイメージ" loading="lazy"><button class="light-install__button" type="button" aria-pressed="false">＋ 点灯する</button></div>
+                  <figcaption>ガードスタンドに取り付け</figcaption>
+                </figure>
+              </div>
+            </section>
+            <p class="product__spec">サイズ（約）：W284×D63×H50mm</p>
+          </div>
         </article>
         <article class="product">
           <div class="product__image"><img src="./LGS-EL04.png" alt="ソーラーウォールライト CUBE 2型の商品写真" loading="lazy"></div>
-          <div class="product__info"><p class="product__code">LGS-EL04</p><h3 class="product__name">ソーラーウォールライト<br>CUBE 2型</h3><p class="product__spec">サイズ（約）：W158×D50×H151mm</p><p class="product__price">上代<strong>¥5,700</strong> /個</p></div>
+          <div class="product__info">
+            <p class="product__code">LGS-EL04</p>
+            <h3 class="product__name">ExLights ソーラーウォールライト<br>CUBE2型</h3>
+            <p class="product__price">上代<strong>¥5,700</strong> /個</p>
+            <p class="product__use">薄型デザインで歩行の妨げになりにくく、足元を明るく照らします。</p>
+            <div class="light-product__fit">
+              <p class="light-product__fit-label">取り付け可能商品</p>
+              <ul class="light-product__fit-list">
+                <li><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="" aria-hidden="true"><span>サイクルポートスタンド</span></li>
+              </ul>
+            </div>
+            <section class="light-product__demos" aria-label="CUBE2型の取り付けイメージ">
+              <h4 class="light-product__demos-title">取り付けイメージ</h4>
+              <div class="light-install-grid">
+                <figure class="light-install" data-light-install data-before="./サイクルポートスタンド点灯前.jpg" data-after="./サイクルポートスタンド点灯後.jpg">
+                  <div class="light-install__scene"><img src="./サイクルポートスタンド点灯前.jpg" alt="サイクルポートスタンドにCUBE2型を取り付けた消灯時のイメージ" loading="lazy"><button class="light-install__button" type="button" aria-pressed="false">＋ 点灯する</button></div>
+                  <figcaption>サイクルポートスタンドに取り付け</figcaption>
+                </figure>
+              </div>
+            </section>
+            <p class="product__spec">サイズ（約）：W158×D50×H151mm</p>
+          </div>
         </article>
         <article class="product">
           <div class="product__image"><img src="./LGS-EL10.png" alt="ソーラーウォールライト Mantisの商品写真" loading="lazy"></div>
-          <div class="product__info"><p class="product__code">LGS-EL10</p><h3 class="product__name">ソーラーウォールライト<br>Mantis</h3><p class="product__spec">サイズ（約）：W118×D55×H140mm</p><p class="product__price">上代<strong>¥5,000</strong> /個</p></div>
-        </article>
-        <article class="product">
-          <div class="product__image"><img src="./LGS-ELP01.png" alt="差込式防犯プレートの商品写真" loading="lazy"></div>
-          <div class="product__info"><p class="product__code">LGS-ELP01</p><h3 class="product__name">差込式防犯プレート</h3><p class="product__use">このプレートを使用して躯体に照明を取り付けます。</p><p class="product__spec">サイズ（約）：W73×D15×H30mm</p><p class="product__price">上代<strong>¥1,000</strong> /個</p></div>
+          <div class="product__info">
+            <p class="product__code">LGS-EL10</p>
+            <h3 class="product__name">ExLights ソーラーウォールライト<br>Mantis</h3>
+            <p class="product__price">上代<strong>¥5,000</strong> /個</p>
+            <p class="product__use">配光角度を約30°調整でき、必要な場所を効果的に照らします。</p>
+            <div class="light-product__fit">
+              <p class="light-product__fit-label">取り付け可能商品</p>
+              <ul class="light-product__fit-list">
+                <li><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="" aria-hidden="true"><span>ガードスタンド</span></li>
+                <li><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="" aria-hidden="true"><span>スタイルポール（チェーンフックあり・なし）</span></li>
+              </ul>
+            </div>
+            <section class="light-product__demos" aria-label="Mantisの取り付けイメージ">
+              <h4 class="light-product__demos-title">取り付けイメージ</h4>
+              <div class="light-install-grid">
+                <figure class="light-install" data-light-install data-before="./ガードスタンド点灯前.jpg" data-after="./ガードスタンド点灯後.jpg">
+                  <div class="light-install__scene"><img src="./ガードスタンド点灯前.jpg" alt="ガードスタンドにMantisを取り付けた消灯時のイメージ" loading="lazy"><button class="light-install__button" type="button" aria-pressed="false">＋ 点灯する</button></div>
+                  <figcaption>ガードスタンドに取り付け</figcaption>
+                </figure>
+                <figure class="light-install" data-light-install data-before="./スタイルポール点灯前.jpg" data-after="./スタイルポール点灯後.jpg">
+                  <div class="light-install__scene"><img src="./スタイルポール点灯前.jpg" alt="スタイルポールにMantisを取り付けた消灯時のイメージ" loading="lazy"><button class="light-install__button" type="button" aria-pressed="false">＋ 点灯する</button></div>
+                  <figcaption>スタイルポール（チェーンフックあり・なし）に取り付け</figcaption>
+                </figure>
+              </div>
+            </section>
+            <p class="product__spec">サイズ（約）：W118×D55×H140mm</p>
+          </div>
         </article>
       </div>
     </section>
@@ -559,6 +857,53 @@
     <p>エクステリアから考える<br>安心の防犯対策</p>
     <span>ExPlus × ExLights series</span>
   </div>
+  <svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="footer-white-background-removal" color-interpolation-filters="sRGB">
+        <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -1.063 -3.576 -0.361 0 4.5" result="backgroundMask"></feColorMatrix>
+        <feComposite in="SourceGraphic" in2="backgroundMask" operator="in"></feComposite>
+      </filter>
+    </defs>
+  </svg>
+  <section class="footer-products" aria-label="ExPlus商品イメージ">
+    <p class="footer-products__title">暮らしを守る、ExPlusシリーズ</p>
+    <div class="footer-products__lane">
+      <div class="footer-products__track">
+        <div class="footer-products__group">
+          <a class="footer-products__link" href="#product-guard-pole" aria-label="ガードポールの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-style-pole" aria-label="スタイルポールの商品情報へ"><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-guard-fence" aria-label="ガードフェンスの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-guard-stand" aria-label="ガードスタンドの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-cycle-stand" aria-label="サイクルポートスタンドの商品情報へ"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="" aria-hidden="true"></a>
+        </div>
+        <div class="footer-products__group" aria-hidden="true">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="">
+          <img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="">
+          <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="footer-products__lane footer-products__lane--reverse">
+      <div class="footer-products__track">
+        <div class="footer-products__group">
+          <a class="footer-products__link" href="#product-guard-stand" tabindex="-1" aria-label="ガードスタンドの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-guard-fence" tabindex="-1" aria-label="ガードフェンスの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-style-pole" tabindex="-1" aria-label="スタイルポールの商品情報へ"><img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-guard-pole" tabindex="-1" aria-label="ガードポールの商品情報へ"><img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="" aria-hidden="true"></a>
+          <a class="footer-products__link" href="#product-cycle-stand" tabindex="-1" aria-label="サイクルポートスタンドの商品情報へ"><img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="" aria-hidden="true"></a>
+        </div>
+        <div class="footer-products__group" aria-hidden="true">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99.png" alt="">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B92.png" alt="">
+          <img src="./ExPlus_series_%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB.png" alt="">
+          <img src="./ExPlus_series_%E3%82%AB%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%AB%EF%BC%88%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E3%81%AA%E3%81%97%EF%BC%89_%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9%E3%81%AA%E3%81%97.png" alt="">
+          <img src="./Explus_%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%82%99H%3D1200.png" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
   <footer>株式会社タカショー　|　エクステリアから考える安心の防犯対策</footer>
   <script>
     const comboBanner = document.querySelector(".combo-banner");
@@ -568,6 +913,31 @@
     const thiefRunAnimation = comboThief.querySelector(".combo-banner__thief-run");
     const thiefFadeAnimation = comboThief.querySelector('animate[attributeName="opacity"]');
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    document.querySelectorAll("[data-product-gallery]").forEach((gallery) => {
+      const track = gallery.querySelector(".product-gallery__track");
+      const slides = track.querySelectorAll("img");
+      const count = gallery.querySelector(".product-gallery__count");
+      const previous = gallery.querySelector("[data-gallery-prev]");
+      const next = gallery.querySelector("[data-gallery-next]");
+
+      const updateGalleryState = () => {
+        const current = Math.min(slides.length, Math.max(1, Math.round(track.scrollLeft / track.clientWidth) + 1));
+        count.textContent = `${current} / ${slides.length}`;
+        previous.disabled = current === 1;
+        next.disabled = current === slides.length;
+      };
+
+      previous.addEventListener("click", () => {
+        track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+      });
+      next.addEventListener("click", () => {
+        track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+      });
+      track.addEventListener("scroll", updateGalleryState, { passive: true });
+      window.addEventListener("resize", updateGalleryState);
+      updateGalleryState();
+    });
 
     document.querySelectorAll(".feature__product-button").forEach((button) => {
       button.addEventListener("click", () => {
@@ -581,11 +951,27 @@
         });
 
         if (wasSelected) {
+          if (feature.dataset.baseImage) {
+            feature.querySelector(".feature__image").src = feature.dataset.baseImage;
+          }
           feature.classList.remove("is-placed");
           placement.replaceChildren();
           placement.removeAttribute("data-product");
+          feature.querySelector(".feature__here").removeAttribute("data-product");
           placement.setAttribute("aria-hidden", "true");
           status.textContent = "設置イメージを消しました。";
+          return;
+        }
+
+        if (button.dataset.scene) {
+          feature.querySelector(".feature__image").src = button.dataset.scene;
+          placement.replaceChildren();
+          placement.dataset.product = button.dataset.product;
+          feature.querySelector(".feature__here").dataset.product = button.dataset.product;
+          placement.setAttribute("aria-hidden", "true");
+          button.setAttribute("aria-pressed", "true");
+          feature.classList.add("is-placed");
+          status.textContent = `${button.dataset.alt}を表示しています。`;
           return;
         }
 
@@ -595,10 +981,27 @@
         image.loading = "lazy";
         placement.replaceChildren(image);
         placement.dataset.product = button.dataset.product;
+        feature.querySelector(".feature__here").dataset.product = button.dataset.product;
         placement.setAttribute("aria-hidden", "false");
         button.setAttribute("aria-pressed", "true");
         feature.classList.add("is-placed");
         status.textContent = `${button.dataset.alt}を表示しています。`;
+      });
+    });
+
+    document.querySelectorAll("[data-light-install]").forEach((demo) => {
+      const image = demo.querySelector(".light-install__scene img");
+      const button = demo.querySelector(".light-install__button");
+      const beforeImage = demo.dataset.before;
+      const afterImage = demo.dataset.after;
+
+      button.addEventListener("click", () => {
+        const isLit = button.getAttribute("aria-pressed") !== "true";
+        image.src = isLit ? afterImage : beforeImage;
+        image.alt = image.alt.replace(isLit ? "消灯時" : "点灯時", isLit ? "点灯時" : "消灯時");
+        button.setAttribute("aria-pressed", String(isLit));
+        button.textContent = isLit ? "− 消灯する" : "＋ 点灯する";
+        demo.classList.toggle("is-lit", isLit);
       });
     });
 
